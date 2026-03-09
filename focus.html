@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mindful Moments | Focus & Reset</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="inner-page">
+
+<header class="bar">
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/4149/4149676.png" alt="">
+    <span>Mindful Moments</span>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="wellbeing.html">Wellbeing</a>
+    <a class="on" href="focus.html">Focus & Reset</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <a class="pill" href="support.html">Support</a>
+</header>
+
+<div class="page-decor decor-c" aria-hidden="true">
+  <span class="leaf leaf-a"></span>
+  <span class="leaf leaf-b"></span>
+  <span class="leaf leaf-c"></span>
+  <span class="toucan-sticker"></span>
+</div>
+
+<section class="wrap">
+  <div class="box center">
+    <h1>Focus & Reset</h1>
+    <p>Short tools to get back on track without pressure.</p>
+
+    <div class="focus-tools">
+      <div class="tool-card">
+        <h2>Pomodoro Timer</h2>
+        <p class="muted">Default cycle: 25 minutes focus, 5 minutes break.</p>
+        <div class="timer-display" id="focus-display">25:00</div>
+        <p id="focus-phase" class="badge">Focus Session</p>
+        <div class="tool-actions">
+          <button class="send" id="focus-start" type="button">Start</button>
+          <button class="send alt" id="focus-pause" type="button">Pause</button>
+          <button class="send alt" id="focus-reset" type="button">Reset</button>
+        </div>
+        <p class="muted" id="focus-status">Ready to start your first session.</p>
+      </div>
+
+      <div class="tool-card">
+        <h2>Reset Checklist</h2>
+        <p class="muted">Complete all steps before restarting work.</p>
+        <div class="check-list">
+          <label><input type="checkbox" class="reset-step"> Clear your desk and close extra tabs.</label>
+          <label><input type="checkbox" class="reset-step"> Take 3 deep breaths slowly.</label>
+          <label><input type="checkbox" class="reset-step"> Drink a little water.</label>
+          <label><input type="checkbox" class="reset-step"> Pick one next task and write it down.</label>
+        </div>
+        <div class="tool-actions">
+          <button class="send" id="check-complete" type="button">Mark Complete</button>
+          <button class="send alt" id="check-clear" type="button">Clear Checklist</button>
+        </div>
+        <p class="muted" id="check-status">0 of 4 steps done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="wrap">
+  <div class="box">
+    <h2>Practical Tips</h2>
+    <p class="hero-note">Focus improves when sessions are time-boxed and the next action is obvious.</p>
+    <div class="details-grid">
+      <div class="detail-block">
+        <span class="badge">Start</span>
+        <h3>Define the First 2 Minutes</h3>
+        <p>Write your first action before the timer starts. Clear starts reduce procrastination and decision fatigue.</p>
+      </div>
+      <div class="detail-block">
+        <span class="badge">Flow</span>
+        <h3>Protect Deep Work</h3>
+        <p>Silence notifications and keep one tab open for the active task. Context switching drains your focus time.</p>
+      </div>
+      <div class="detail-block">
+        <span class="badge">Reset</span>
+        <h3>Use Recovery Breaks</h3>
+        <p>Stand up, hydrate, and look away from screens for one minute before starting the next round.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">Mindful Moments™ by Shaurya Dixit</div>
+</footer>
+
+<script>
+  const focusDisplay = document.getElementById("focus-display");
+  const focusPhase = document.getElementById("focus-phase");
+  const focusStatus = document.getElementById("focus-status");
+  const startBtn = document.getElementById("focus-start");
+  const pauseBtn = document.getElementById("focus-pause");
+  const resetBtn = document.getElementById("focus-reset");
+
+  const focusLength = 25 * 60;
+  const breakLength = 5 * 60;
+  let remaining = focusLength;
+  let isFocus = true;
+  let timerId = null;
+
+  function format(seconds) {
+    const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const ss = String(seconds % 60).padStart(2, "0");
+    return `${mm}:${ss}`;
+  }
+
+  function updateFocusDisplay() {
+    focusDisplay.textContent = format(remaining);
+    focusPhase.textContent = isFocus ? "Focus Session" : "Break Session";
+  }
+
+  function tick() {
+    remaining -= 1;
+    if (remaining <= 0) {
+      isFocus = !isFocus;
+      remaining = isFocus ? focusLength : breakLength;
+      focusStatus.textContent = isFocus ? "Break ended. Back to focus." : "Focus complete. Take a short break.";
+    }
+    updateFocusDisplay();
+  }
+
+  startBtn.addEventListener("click", () => {
+    if (timerId) return;
+    timerId = setInterval(tick, 1000);
+    focusStatus.textContent = "Timer running.";
+  });
+
+  pauseBtn.addEventListener("click", () => {
+    clearInterval(timerId);
+    timerId = null;
+    focusStatus.textContent = "Timer paused.";
+  });
+
+  resetBtn.addEventListener("click", () => {
+    clearInterval(timerId);
+    timerId = null;
+    isFocus = true;
+    remaining = focusLength;
+    updateFocusDisplay();
+    focusStatus.textContent = "Timer reset to 25:00.";
+  });
+
+  const steps = Array.from(document.querySelectorAll(".reset-step"));
+  const checkStatus = document.getElementById("check-status");
+  const checkComplete = document.getElementById("check-complete");
+  const checkClear = document.getElementById("check-clear");
+
+  function refreshChecklist() {
+    const done = steps.filter((step) => step.checked).length;
+    checkStatus.textContent = `${done} of ${steps.length} steps done.`;
+  }
+
+  steps.forEach((step) => step.addEventListener("change", refreshChecklist));
+
+  checkComplete.addEventListener("click", () => {
+    steps.forEach((step) => {
+      step.checked = true;
+    });
+    refreshChecklist();
+    checkStatus.textContent = "Checklist complete. You are ready to restart.";
+  });
+
+  checkClear.addEventListener("click", () => {
+    steps.forEach((step) => {
+      step.checked = false;
+    });
+    refreshChecklist();
+  });
+
+  updateFocusDisplay();
+  refreshChecklist();
+</script>
+
+</body>
+</html>

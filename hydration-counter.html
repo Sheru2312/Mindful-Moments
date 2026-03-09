@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mindful Moments | Hydration Counter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="inner-page">
+
+<header class="bar">
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/4149/4149676.png" alt="">
+    <span>Mindful Moments</span>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a class="on" href="wellbeing.html">Wellbeing</a>
+    <a href="focus.html">Focus & Reset</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <a class="pill" href="support.html">Support</a>
+</header>
+
+<div class="page-decor decor-g" aria-hidden="true">
+  <span class="leaf leaf-a"></span>
+  <span class="leaf leaf-b"></span>
+  <span class="leaf leaf-c"></span>
+  <span class="toucan-sticker"></span>
+</div>
+
+<section class="wrap">
+  <div class="box center">
+    <h1>Water ML Counter</h1>
+    <p>Track your water intake against a daily goal.</p>
+    <div class="tool-card compact">
+      <label for="water-goal">Daily Goal (ml)</label>
+      <input id="water-goal" type="number" min="100" step="50" value="2000">
+
+      <label for="water-add">Add Amount (ml)</label>
+      <input id="water-add" type="number" min="10" step="10" value="250">
+
+      <div class="tool-actions">
+        <button class="send" id="add-water" type="button">Add Water</button>
+        <button class="send alt" id="remove-water" type="button">Remove</button>
+        <button class="send alt" id="reset-water" type="button">Reset</button>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-bar" id="water-progress"></div>
+      </div>
+      <p id="water-status" class="muted">0 ml of 2000 ml</p>
+    </div>
+    <a class="pill" href="wellbeing.html">Back to Wellbeing</a>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="box">
+    <h2>Practical Tips</h2>
+    <p class="hero-note">Use these guidelines to make your routine more effective and easier to maintain.</p>
+    <div class="details-grid">
+      <div class="detail-block">
+        <span class="badge">Consistency</span>
+        <h3>Keep It Small</h3>
+        <p>Start with short sessions and repeat daily. Consistent short habits are more reliable than long plans done rarely.</p>
+      </div>
+      <div class="detail-block">
+        <span class="badge">Structure</span>
+        <h3>Track One Metric</h3>
+        <p>Choose one number to follow each week, such as minutes, steps, or journal entries, so progress stays visible.</p>
+      </div>
+      <div class="detail-block">
+        <span class="badge">Support</span>
+        <h3>Check In Weekly</h3>
+        <p>Share your progress with a friend, classmate, or trusted adult once a week to keep motivation steady.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">Mindful Moments™ by Shaurya Dixit</div>
+</footer>
+
+<script>
+  const goalInput = document.getElementById("water-goal");
+  const addInput = document.getElementById("water-add");
+  const addBtn = document.getElementById("add-water");
+  const removeBtn = document.getElementById("remove-water");
+  const resetBtn = document.getElementById("reset-water");
+  const progress = document.getElementById("water-progress");
+  const status = document.getElementById("water-status");
+
+  let total = 0;
+
+  function updateView() {
+    const goal = Math.max(100, Number(goalInput.value) || 2000);
+    const percent = Math.min(100, Math.round((total / goal) * 100));
+    progress.style.width = `${percent}%`;
+    status.textContent = `${total} ml of ${goal} ml (${percent}%)`;
+  }
+
+  addBtn.addEventListener("click", () => {
+    const amount = Math.max(10, Number(addInput.value) || 0);
+    total += amount;
+    updateView();
+  });
+
+  removeBtn.addEventListener("click", () => {
+    const amount = Math.max(10, Number(addInput.value) || 0);
+    total = Math.max(0, total - amount);
+    updateView();
+  });
+
+  resetBtn.addEventListener("click", () => {
+    total = 0;
+    updateView();
+  });
+
+  goalInput.addEventListener("input", updateView);
+  updateView();
+</script>
+
+</body>
+</html>

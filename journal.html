@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mindful Moments | Journal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="inner-page">
+
+<header class="bar">
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/4149/4149676.png" alt="">
+    <span>Mindful Moments</span>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a class="on" href="wellbeing.html">Wellbeing</a>
+    <a href="focus.html">Focus & Reset</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <a class="pill" href="support.html">Support</a>
+</header>
+
+<div class="page-decor decor-b" aria-hidden="true">
+  <span class="leaf leaf-a"></span>
+  <span class="leaf leaf-b"></span>
+  <span class="leaf leaf-c"></span>
+  <span class="toucan-sticker"></span>
+</div>
+
+<section class="wrap">
+  <div class="box center">
+    <h1>Daily Journal</h1>
+    <p>Write structured reflections and keep them saved.</p>
+    <div class="tool-card">
+      <label for="journal-title">Title</label>
+      <input id="journal-title" type="text" placeholder="Today I felt...">
+
+      <label for="journal-mood">Mood (1-10)</label>
+      <input id="journal-mood" type="number" min="1" max="10" value="7">
+
+      <label for="journal-text">Entry</label>
+      <textarea id="journal-text" placeholder="What happened today? What went well? What is one goal for tomorrow?"></textarea>
+
+      <div class="tool-actions">
+        <button class="send" id="save-journal" type="button">Save Entry</button>
+        <button class="send alt" id="clear-journal" type="button">Clear All</button>
+      </div>
+
+      <div id="journal-list" class="log-list"></div>
+    </div>
+    <a class="pill" href="wellbeing.html">Back to Wellbeing</a>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="box">
+    <h2>Practical Tips</h2>
+    <p class="hero-note">Use these guidelines to make your routine more effective and easier to maintain.</p>
+    <div class="details-grid">
+      <div class="detail-block">
+        <span class="badge">Consistency</span>
+        <h3>Keep It Small</h3>
+        <p>Start with short sessions and repeat daily. Consistent short habits are more reliable than long plans done rarely.</p>
+      </div>
+      <div class="detail-block">
+        <span class="badge">Structure</span>
+        <h3>Track One Metric</h3>
+        <p>Choose one number to follow each week, such as minutes, steps, or journal entries, so progress stays visible.</p>
+      </div>
+      <div class="detail-block">
+        <span class="badge">Support</span>
+        <h3>Check In Weekly</h3>
+        <p>Share your progress with a friend, classmate, or trusted adult once a week to keep motivation steady.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">Mindful Moments™ by Shaurya Dixit</div>
+</footer>
+
+<script>
+  const STORAGE_KEY = "mindful-journal-entries";
+  const titleInput = document.getElementById("journal-title");
+  const moodInput = document.getElementById("journal-mood");
+  const textInput = document.getElementById("journal-text");
+  const saveBtn = document.getElementById("save-journal");
+  const clearBtn = document.getElementById("clear-journal");
+  const list = document.getElementById("journal-list");
+
+  function getEntries() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function setEntries(entries) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  }
+
+  function renderEntries() {
+    const entries = getEntries();
+    if (!entries.length) {
+      list.innerHTML = "<p class=\"muted\">No journal entries saved yet.</p>";
+      return;
+    }
+
+    list.innerHTML = entries.map((entry) => (
+      `<div class=\"log-item\"><strong>${entry.title}</strong> (Mood ${entry.mood}/10)<br>${entry.text}<br><small>${entry.date}</small></div>`
+    )).join("");
+  }
+
+  saveBtn.addEventListener("click", () => {
+    const title = titleInput.value.trim();
+    const mood = Math.max(1, Math.min(10, Number(moodInput.value) || 7));
+    const text = textInput.value.trim();
+
+    if (!title || !text) {
+      return;
+    }
+
+    const entries = getEntries();
+    entries.unshift({
+      title,
+      mood,
+      text,
+      date: new Date().toLocaleString()
+    });
+    setEntries(entries.slice(0, 50));
+
+    titleInput.value = "";
+    textInput.value = "";
+    renderEntries();
+  });
+
+  clearBtn.addEventListener("click", () => {
+    localStorage.removeItem(STORAGE_KEY);
+    renderEntries();
+  });
+
+  renderEntries();
+</script>
+
+</body>
+</html>

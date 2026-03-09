@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mindful Moments | Movement Log</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="inner-page">
+
+<header class="bar">
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/4149/4149676.png" alt="">
+    <span>Mindful Moments</span>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a class="on" href="wellbeing.html">Wellbeing</a>
+    <a href="focus.html">Focus & Reset</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <a class="pill" href="support.html">Support</a>
+</header>
+
+<div class="page-decor decor-h" aria-hidden="true">
+  <span class="leaf leaf-a"></span>
+  <span class="leaf leaf-b"></span>
+  <span class="leaf leaf-c"></span>
+  <span class="toucan-sticker"></span>
+</div>
+
+<section class="wrap">
+  <div class="box center">
+    <h1>Movement Log</h1>
+    <p>Track stretching minutes, walking steps, and dancing minutes.</p>
+    <div class="tool-card">
+      <div class="tool-grid">
+        <div>
+          <label for="stretch-min">Stretching (minutes)</label>
+          <input id="stretch-min" type="number" min="0" value="0">
+        </div>
+        <div>
+          <label for="walk-steps">Walking (steps)</label>
+          <input id="walk-steps" type="number" min="0" value="0">
+        </div>
+        <div>
+          <label for="dance-min">Dancing (minutes)</label>
+          <input id="dance-min" type="number" min="0" value="0">
+        </div>
+      </div>
+
+      <div class="tool-actions">
+        <button class="send" id="save-log" type="button">Save Entry</button>
+        <button class="send alt" id="clear-log" type="button">Clear Log</button>
+      </div>
+
+      <p id="movement-total" class="muted">No entries yet.</p>
+      <div id="movement-list" class="log-list"></div>
+    </div>
+    <a class="pill" href="wellbeing.html">Back to Wellbeing</a>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="box">
+    <h2>Practical Tips</h2>
+    <p class="hero-note">Use these guidelines to make your routine more effective and easier to maintain.</p>
+    <div class="details-grid">
+      <div class="detail-block">
+        <span class="badge">Consistency</span>
+        <h3>Keep It Small</h3>
+        <p>Start with short sessions and repeat daily. Consistent short habits are more reliable than long plans done rarely.</p>
+      </div>
+      <div class="detail-block">
+        <span class="badge">Structure</span>
+        <h3>Track One Metric</h3>
+        <p>Choose one number to follow each week, such as minutes, steps, or journal entries, so progress stays visible.</p>
+      </div>
+      <div class="detail-block">
+        <span class="badge">Support</span>
+        <h3>Check In Weekly</h3>
+        <p>Share your progress with a friend, classmate, or trusted adult once a week to keep motivation steady.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">Mindful Moments™ by Shaurya Dixit</div>
+</footer>
+
+<script>
+  const STORAGE_KEY = "mindful-movement-log";
+  const stretchInput = document.getElementById("stretch-min");
+  const walkInput = document.getElementById("walk-steps");
+  const danceInput = document.getElementById("dance-min");
+  const saveBtn = document.getElementById("save-log");
+  const clearBtn = document.getElementById("clear-log");
+  const total = document.getElementById("movement-total");
+  const list = document.getElementById("movement-list");
+
+  function getLogs() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function setLogs(logs) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+  }
+
+  function render() {
+    const logs = getLogs();
+    const stretch = logs.reduce((sum, item) => sum + item.stretch, 0);
+    const steps = logs.reduce((sum, item) => sum + item.steps, 0);
+    const dance = logs.reduce((sum, item) => sum + item.dance, 0);
+
+    total.textContent = `Totals: ${stretch} min stretching, ${steps} steps walking, ${dance} min dancing`;
+
+    if (!logs.length) {
+      list.innerHTML = "<p class=\"muted\">No saved movement entries.</p>";
+      return;
+    }
+
+    list.innerHTML = logs.map((item) => (
+      `<div class=\"log-item\"><strong>${item.date}</strong> - Stretch: ${item.stretch} min, Walk: ${item.steps} steps, Dance: ${item.dance} min</div>`
+    )).join("");
+  }
+
+  saveBtn.addEventListener("click", () => {
+    const entry = {
+      date: new Date().toLocaleString(),
+      stretch: Math.max(0, Number(stretchInput.value) || 0),
+      steps: Math.max(0, Number(walkInput.value) || 0),
+      dance: Math.max(0, Number(danceInput.value) || 0)
+    };
+
+    const logs = getLogs();
+    logs.unshift(entry);
+    setLogs(logs.slice(0, 20));
+    render();
+  });
+
+  clearBtn.addEventListener("click", () => {
+    localStorage.removeItem(STORAGE_KEY);
+    render();
+  });
+
+  render();
+</script>
+
+</body>
+</html>

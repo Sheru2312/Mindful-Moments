@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mindful Moments | Contact Helpline Support</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="inner-page">
+
+<header class="bar">
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/4149/4149676.png" alt="">
+    <span>Mindful Moments</span>
+  </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="wellbeing.html">Wellbeing</a>
+    <a href="focus.html">Focus & Reset</a>
+    <a class="on" href="contact.html">Contact</a>
+  </nav>
+  <a class="pill" href="support.html">Support</a>
+</header>
+
+<div class="page-decor decor-h" aria-hidden="true">
+  <span class="leaf leaf-a"></span>
+  <span class="leaf leaf-b"></span>
+  <span class="leaf leaf-c"></span>
+  <span class="toucan-sticker"></span>
+</div>
+
+<section class="wrap">
+  <div class="box">
+    <h1 class="title">Contact Helpline Support</h1>
+    <p class="hero-note">For urgent danger, call local emergency services immediately. Use this form for helpline follow-up support requests.</p>
+
+    <div class="contact-hero">
+      <form class="contact-panel" action="message-sent.html" method="get">
+        <h2>Helpline Follow-Up Request</h2>
+        <div class="contact-form">
+          <div>
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Your full name" required>
+          </div>
+          <div>
+            <label>Email</label>
+            <input type="email" name="email" placeholder="name@email.com" required>
+          </div>
+          <div>
+            <label>Urgency</label>
+            <select name="urgency" required>
+              <option value="">Select urgency...</option>
+              <option>Urgent (today)</option>
+              <option>This week</option>
+              <option>General follow-up</option>
+            </select>
+          </div>
+          <div>
+            <label>Preferred Contact</label>
+            <select name="contact_mode" required>
+              <option value="">Select method...</option>
+              <option>Phone</option>
+              <option>Email</option>
+              <option>Text</option>
+            </select>
+          </div>
+          <div class="full">
+            <label>Message</label>
+            <textarea name="message" placeholder="Share what support you need and when to reach you." required></textarea>
+          </div>
+          <input type="hidden" name="concern" value="Helpline Information">
+          <div class="full">
+            <button class="send" type="submit">Send Helpline Request</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="contact-panel">
+        <h2>Safety Reminder</h2>
+        <ul class="resource-list">
+          <li>If there is immediate risk, contact emergency services now.</li>
+          <li>Stay near a trusted adult when possible.</li>
+          <li>Share your best reachable contact details clearly.</li>
+        </ul>
+        <div class="cta-row">
+          <a class="pill" href="support.html">Back to Support</a>
+          <a class="pill ghost" href="contact.html">General Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">Mindful Moments™ by Shaurya Dixit</div>
+</footer>
+
+</body>
+</html>

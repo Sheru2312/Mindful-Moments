@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mindful Moments | Contact</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="inner-page">
+
+<header class="bar">
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/4149/4149676.png" alt="">
+    <span>Mindful Moments</span>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="wellbeing.html">Wellbeing</a>
+    <a href="focus.html">Focus & Reset</a>
+    <a class="on" href="contact.html">Contact</a>
+  </nav>
+
+  <a class="pill" href="support.html">Support</a>
+</header>
+
+<div class="page-decor decor-e" aria-hidden="true">
+  <span class="leaf leaf-a"></span>
+  <span class="leaf leaf-b"></span>
+  <span class="leaf leaf-c"></span>
+  <span class="toucan-sticker"></span>
+</div>
+
+<section class="wrap">
+  <div class="box">
+    <h1 class="title">Contact & Care Request</h1>
+    <p class="hero-note">Use this form to share what is going on and how you want support. You can keep it short and still get help.</p>
+
+    <div class="contact-hero">
+      <form class="contact-panel" action="message-sent.html" method="get">
+        <h2>Request Support</h2>
+        <p class="mini-note">Required fields are marked by context in each label.</p>
+
+        <div class="contact-form">
+          <div>
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Your full name" required>
+          </div>
+          <div>
+            <label>Student Email</label>
+            <input type="email" name="email" placeholder="name@school.edu" required>
+          </div>
+          <div>
+            <label>Grade / Year</label>
+            <input type="text" name="grade" placeholder="Example: Grade 10" required>
+          </div>
+          <div>
+            <label>Concern Type</label>
+            <select name="concern" required>
+              <option value="">Select one...</option>
+              <option>Stress or Anxiety</option>
+              <option>Study Burnout</option>
+              <option>Sleep Difficulty</option>
+              <option>Family or Social</option>
+              <option>Trusted Adult Support</option>
+              <option>School Support</option>
+              <option>Helpline Information</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="full">
+            <label>How urgent is this?</label>
+            <select name="urgency" required>
+              <option value="">Choose urgency...</option>
+              <option>Urgent (today)</option>
+              <option>This week</option>
+              <option>General check-in</option>
+            </select>
+          </div>
+          <div class="full">
+            <label>Message</label>
+            <textarea name="message" placeholder="Briefly describe what happened and what support you need." required></textarea>
+          </div>
+          <div class="full">
+            <button class="send" type="submit">Send Request</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="contact-panel">
+        <h2>What Happens Next</h2>
+        <ul class="resource-list">
+          <li>Your message is reviewed and routed to the right support type.</li>
+          <li>You get a response using your preferred contact method.</li>
+          <li>If urgent is selected, follow-up is prioritized.</li>
+        </ul>
+        <div class="quote-card">
+          If you feel unsafe right now, contact local emergency services immediately or speak to a trusted adult nearby.
+        </div>
+        <h3>Preferred Follow-Up</h3>
+        <p class="mini-note">You can include this in your message body:</p>
+        <ul class="resource-list">
+          <li>Best contact window: morning, afternoon, or evening</li>
+          <li>Preferred method: email, phone, or in-person</li>
+          <li>One goal for the first conversation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="wrap">
+  <div class="box">
+    <h2>Practical Tips</h2>
+    <p class="hero-note">When asking for help, clarity and safety matter more than perfect wording.</p>
+    <div class="details-grid">
+      <div class="detail-block">
+        <span class="badge">Clarity</span>
+        <h3>Use Concrete Details</h3>
+        <p>Share one specific example, when it happened, and how it affected your day. This speeds up the right support.</p>
+      </div>
+      <div class="detail-block">
+        <span class="badge">Safety</span>
+        <h3>Name Urgency Early</h3>
+        <p>If support is needed today, state that in your first lines so the response can be prioritized correctly.</p>
+      </div>
+      <div class="detail-block">
+        <span class="badge">Follow-Up</span>
+        <h3>Ask for One Next Step</h3>
+        <p>End your note with the next action you want, like a meeting slot, a call, or resources to review.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">Mindful Moments™ by Shaurya Dixit</div>
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const concernValue = params.get("concern");
+  const concernSelect = document.querySelector('select[name="concern"]');
+  if (concernValue && concernSelect) {
+    const options = Array.from(concernSelect.options).map((o) => o.value);
+    if (options.includes(concernValue)) {
+      concernSelect.value = concernValue;
+    }
+  }
+</script>
+
+</body>
+</html>

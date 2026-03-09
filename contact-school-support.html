@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mindful Moments | Contact School Support</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="inner-page">
+
+<header class="bar">
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/4149/4149676.png" alt="">
+    <span>Mindful Moments</span>
+  </div>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="wellbeing.html">Wellbeing</a>
+    <a href="focus.html">Focus & Reset</a>
+    <a class="on" href="contact.html">Contact</a>
+  </nav>
+  <a class="pill" href="support.html">Support</a>
+</header>
+
+<div class="page-decor decor-g" aria-hidden="true">
+  <span class="leaf leaf-a"></span>
+  <span class="leaf leaf-b"></span>
+  <span class="leaf leaf-c"></span>
+  <span class="toucan-sticker"></span>
+</div>
+
+<section class="wrap">
+  <div class="box">
+    <h1 class="title">Contact School Support</h1>
+    <p class="hero-note">Submit this form to connect with counselors or school wellbeing staff.</p>
+
+    <div class="contact-hero">
+      <form class="contact-panel" action="message-sent.html" method="get">
+        <h2>School Support Request</h2>
+        <div class="contact-form">
+          <div>
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Your full name" required>
+          </div>
+          <div>
+            <label>Student Email</label>
+            <input type="email" name="email" placeholder="name@school.edu" required>
+          </div>
+          <div>
+            <label>Grade / Year</label>
+            <input type="text" name="grade" placeholder="Example: Grade 10" required>
+          </div>
+          <div>
+            <label>Preferred Meeting Type</label>
+            <select name="meeting" required>
+              <option value="">Select one...</option>
+              <option>In-person</option>
+              <option>Phone</option>
+              <option>Video</option>
+            </select>
+          </div>
+          <div class="full">
+            <label>Message</label>
+            <textarea name="message" placeholder="What do you need support with at school?" required></textarea>
+          </div>
+          <input type="hidden" name="concern" value="School Support">
+          <div class="full">
+            <button class="send" type="submit">Send School Support Request</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="contact-panel">
+        <h2>Include These Details</h2>
+        <ul class="resource-list">
+          <li>What is affecting your school day most right now.</li>
+          <li>One support action you want this week.</li>
+          <li>Best days and times for a response.</li>
+        </ul>
+        <div class="cta-row">
+          <a class="pill" href="support.html">Back to Support</a>
+          <a class="pill ghost" href="contact.html">General Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">Mindful Moments™ by Shaurya Dixit</div>
+</footer>
+
+</body>
+</html>
